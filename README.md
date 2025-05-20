@@ -1,6 +1,3 @@
-# Sales-Performance-Analysis-Customer-Segmentation
-An end-to-end data analytics project using SQL and Power BI to analyze eCommerce sales performance and segment customers. Includes real-world business insights for improving revenue, marketing, and customer targeting.
-
 # 📊 Sales Performance Analysis & Customer Segmentation
 
 This end-to-end data analytics project analyzes e-commerce sales data to uncover meaningful business insights, improve decision-making, and segment customers based on behavior and value.
