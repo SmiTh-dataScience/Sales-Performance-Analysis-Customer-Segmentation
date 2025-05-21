@@ -1,1 +1,171 @@
+SELECT * FROM sales_project.sales_data;
 
+------------------  DATA CLEANING --------------------- 
+
+-- Check if there are any duplicates (based on all columns)
+SELECT *, COUNT(*) 
+FROM sales_data 
+GROUP BY 
+  ORDERNUMBER, QUANTITYORDERED, PRICEEACH, ORDERLINENUMBER, SALES,
+  ORDERDATE, STATUS, QTR_ID, MONTH_ID, YEAR_ID, PRODUCTLINE, MSRP,
+  PRODUCTCODE, CUSTOMERNAME, PHONE, ADDRESSLINE1, ADDRESSLINE2, CITY,
+  STATE, POSTALCODE, COUNTRY, TERRITORY, CONTACTLASTNAME, CONTACTFIRSTNAME, DEALSIZE
+HAVING COUNT(*) > 1;
+
+-- Check how many NULLs each column has
+SELECT 
+  SUM(CASE WHEN ORDERNUMBER IS NULL THEN 1 ELSE 0 END) AS null_ordernumber,
+  SUM(CASE WHEN QUANTITYORDERED IS NULL THEN 1 ELSE 0 END) AS null_qty,
+  SUM(CASE WHEN PRICEEACH IS NULL THEN 1 ELSE 0 END) AS null_price,
+  SUM(CASE WHEN ORDERDATE IS NULL THEN 1 ELSE 0 END) AS null_orderdate,
+  SUM(CASE WHEN STATE IS NULL THEN 1 ELSE 0 END) AS null_state,
+  SUM(CASE WHEN POSTALCODE IS NULL THEN 1 ELSE 0 END) AS null_postal,
+  SUM(CASE WHEN COUNTRY IS NULL THEN 1 ELSE 0 END) AS null_country,
+  SUM(CASE WHEN DEALSIZE IS NULL THEN 1 ELSE 0 END) AS null_dealsize
+FROM sales_data;
+
+-- Add a new cleaned date column
+ALTER TABLE sales_data ADD COLUMN clean_order_date DATE;
+
+-- Update clean date format
+UPDATE sales_data 
+SET clean_order_date = STR_TO_DATE(ORDERDATE, '%m/%d/%Y %H:%i');
+
+-- Check if it's correct
+SELECT ORDERDATE, clean_order_date 
+FROM sales_data 
+LIMIT 5;
+
+-- Unique Statuses
+SELECT DISTINCT STATUS FROM sales_data;
+
+-- Unique Deal Sizes
+SELECT DISTINCT DEALSIZE FROM sales_data;
+
+-- Unique Countries
+SELECT DISTINCT COUNTRY FROM sales_data;
+
+--- check if there is any Extra Spaces 
+SELECT *
+FROM sales_data
+WHERE 
+  STATUS != TRIM(STATUS)
+  OR COUNTRY != TRIM(COUNTRY)
+  OR STATE != TRIM(STATE)
+  OR DEALSIZE != TRIM(DEALSIZE);
+  
+  --- check if there is any Extra Spaces between the words
+  SELECT *
+FROM sales_data
+WHERE 
+  STATUS LIKE '%  %'  -- two or more spaces
+  OR COUNTRY LIKE '%  %'
+  OR STATE LIKE '%  %'
+  OR DEALSIZE LIKE '%  %';
+
+--- update columns to UPPERCASE
+UPDATE sales_data 
+SET 
+  STATUS = UPPER(STATUS),
+  COUNTRY = UPPER(COUNTRY),
+  STATE = UPPER(STATE),
+  DEALSIZE = UPPER(DEALSIZE);
+
+--- Check for typos or inconsistencies
+SELECT DISTINCT STATUS FROM sales_data;
+SELECT DISTINCT COUNTRY FROM sales_data;
+SELECT DISTINCT STATE FROM sales_data;
+SELECT DISTINCT DEALSIZE FROM sales_data;
+
+
+------------------  Exploratory Data Analysis --------------------- 
+
+-- 1. What is the total revenue?	
+SELECT ROUND(SUM(SALES), 2) AS total_revenue FROM sales_data;
+
+-- 2. How many orders were placed?	
+SELECT COUNT(DISTINCT ORDERNUMBER) AS total_orders FROM sales_data;
+
+-- 3. How is sales performance by year/month?	
+SELECT YEAR_ID, MONTH_ID, 
+ROUND(SUM(SALES),2) 
+AS 
+revenue FROM sales_data 
+GROUP BY YEAR_ID, MONTH_ID;
+
+-- 4. Which product lines generate the most revenue?	
+SELECT PRODUCTLINE, ROUND(SUM(SALES),2) 
+AS revenue 
+FROM sales_data 
+GROUP BY PRODUCTLINE 
+ORDER BY revenue DESC;
+
+-- 5. Which individual products are best sellers?	
+SELECT PRODUCTCODE, ROUND(SUM(SALES),2) 
+AS total_sales 
+FROM sales_data 
+GROUP BY PRODUCTCODE 
+ORDER BY total_sales DESC LIMIT 10;
+
+-- 6. Which deal sizes (SMALL, MEDIUM, LARGE) are most profitable?	
+SELECT DEALSIZE, ROUND(SUM(SALES),2) 
+AS revenue FROM sales_data 
+GROUP BY DEALSIZE 
+ORDER BY revenue DESC;
+
+-- 7. Which countries contribute the most sales?	
+SELECT COUNTRY, ROUND(SUM(SALES),2) 
+AS revenue 
+FROM sales_data 
+GROUP BY COUNTRY 
+ORDER BY revenue DESC;
+
+-- 8. Which regions/cities are top performers?	
+SELECT CITY, STATE, ROUND(SUM(SALES),2) 
+AS revenue 
+FROM sales_data 
+GROUP BY CITY, STATE 
+ORDER BY revenue DESC;
+
+-- 9. Which months consistently perform well?	
+SELECT MONTH_ID, ROUND(SUM(SALES),2) 
+AS monthly_sales 
+FROM sales_data 
+GROUP BY MONTH_ID 
+ORDER BY monthly_sales DESC;
+
+-- 10. What are the statuses of all orders?	
+SELECT STATUS, COUNT(*) 
+AS total FROM sales_data 
+GROUP BY STATUS;
+
+
+------------------  Customer Segmentation --------------------- 
+
+-- Segment Customers by Deal Size
+SELECT DEALSIZE, COUNT(DISTINCT CUSTOMERNAME) AS customer_count,
+       ROUND(SUM(SALES), 2) AS total_sales
+FROM sales_data
+GROUP BY DEALSIZE
+ORDER BY total_sales DESC;
+
+-- Segment by Country
+SELECT COUNTRY, COUNT(DISTINCT CUSTOMERNAME) AS customer_count,
+       ROUND(SUM(SALES), 2) AS sales_data
+FROM sales_data
+GROUP BY COUNTRY
+ORDER BY sales_data DESC;
+
+-- Segment by Revenue (Top-Spending Customers)
+SELECT CUSTOMERNAME, ROUND(SUM(SALES), 2) AS total_spent
+FROM sales_data
+GROUP BY CUSTOMERNAME
+ORDER BY total_spent DESC
+LIMIT 10;
+
+-- Segment by Order Frequency
+SELECT CUSTOMERNAME, COUNT(DISTINCT ORDERNUMBER) AS order_count
+FROM sales_data
+GROUP BY CUSTOMERNAME
+ORDER BY order_count DESC
+LIMIT 10;
