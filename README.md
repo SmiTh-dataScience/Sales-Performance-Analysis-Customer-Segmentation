@@ -9,15 +9,14 @@ This end-to-end data analytics project analyzes e-commerce sales data to uncover
 | 🔍 Insight | 📈 Business Impact |
 |------------|--------------------|
 | 1. Top 10 customers contribute 45%+ of total revenue | Helps prioritize customer relationship efforts and loyalty programs |
-| 2. Q4 consistently outperforms other quarters | Seasonal trend → better inventory and marketing planning |
+| 2. consistently outperforms other quarters | Seasonal trend → better inventory and marketing planning |
 | 3. Classic Cars product line generates highest revenue | Double down on high-performing categories in promotions |
 | 4. Europe outperforms Asia and NA in total sales | Allocate more resources to EMEA region |
 | 5. Medium and Large Deal Sizes generate more consistent profits | Upselling to small-deal customers can increase revenue |
 | 6. 5 products have high MSRP but low sales volume | Candidates for pricing adjustment or bundling strategy |
 | 7. Repeat customers drive >60% of revenue | Indicates strong customer loyalty — should be nurtured further |
 | 8. Top 5 cities with most orders: Paris, NYC, Madrid, Tokyo, San Francisco | Focused geo-targeting for future campaigns |
-| 9. Sales dip in Q2 of each year | Opportunity to run seasonal offers or email marketing during slow quarters |
-| 10. High refund rate in orders with Deal Size = Small | Explore refund policy or customer education on small-value orders |
+| 9. High refund rate in orders with Deal Size = Small | Explore refund policy or customer education on small-value orders |
 
 ---
 
@@ -35,15 +34,15 @@ This end-to-end data analytics project analyzes e-commerce sales data to uncover
 | Folder | Description |
 |--------|-------------|
 | `1_data/` | Raw sales data (CSV) |
-| `2_sql_scripts/` | SQL for data cleaning, EDA, and segmentation |
+| `2_sql_scripts/` | SQL for data cleaning, EDA, and Customer segmentation |
 | `3_reports/` | Summary of insights & recommendations |
-| `4_dashboard/` | Power BI dashboard (coming soon) |
+| `4_dashboard/` | Power BI dashboard |
 
 ---
 
 ## 🧰 Tools & Tech Stack
 
-- **MySQL** – Data Cleaning, EDA, Segmentation
+- **MySQL** – Data Cleaning, EDA, Customer Segmentation
 - **Power BI** – Interactive dashboard & visualization
 - **Git/GitHub** – Version control and collaboration
 
