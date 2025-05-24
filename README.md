@@ -58,8 +58,5 @@ This end-to-end data analytics project analyzes e-commerce sales data to uncover
 
 ---
 
-## 👤 About Me
 
-I'm a final-year student with a passion for data storytelling. As a fresher, I'm building strong project-based evidence of my skills in analytics, insights, and business thinking.
 
-- 📧 Reach me on [LinkedIn](https://www.linkedin.com/in/your-link)
