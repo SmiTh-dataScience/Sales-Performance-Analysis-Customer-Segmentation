@@ -82,9 +82,11 @@ SELECT DISTINCT DEALSIZE FROM sales_data;
 
 -- 1. What is the total revenue?	
 SELECT ROUND(SUM(SALES), 2) AS total_revenue FROM sales_data;
+ANSWER: '10032628.85'
 
 -- 2. How many orders were placed?	
 SELECT COUNT(DISTINCT ORDERNUMBER) AS total_orders FROM sales_data;
+ANSWER: '307'
 
 -- 3. How is sales performance by year/month?	
 SELECT YEAR_ID, MONTH_ID, 
@@ -92,6 +94,7 @@ ROUND(SUM(SALES),2)
 AS 
 revenue FROM sales_data 
 GROUP BY YEAR_ID, MONTH_ID;
+ANSWER: 
 
 -- 4. Which product lines generate the most revenue?	
 SELECT PRODUCTLINE, ROUND(SUM(SALES),2) 
@@ -112,6 +115,10 @@ SELECT DEALSIZE, ROUND(SUM(SALES),2)
 AS revenue FROM sales_data 
 GROUP BY DEALSIZE 
 ORDER BY revenue DESC;
+ANSWER - 	MEDIUM	6087432.24
+'SMALL', '2643077.35'
+'LARGE', '1302119.26'
+
 
 -- 7. Which countries contribute the most sales?	
 SELECT COUNTRY, ROUND(SUM(SALES),2) 
@@ -148,6 +155,9 @@ SELECT DEALSIZE, COUNT(DISTINCT CUSTOMERNAME) AS customer_count,
 FROM sales_data
 GROUP BY DEALSIZE
 ORDER BY total_sales DESC;
+answr - 'MEDIUM', '92', '6087432.24'
+'SMALL', '92', '2643077.35'
+'LARGE', '70', '1302119.26'
 
 -- Segment by Country
 SELECT COUNTRY, COUNT(DISTINCT CUSTOMERNAME) AS customer_count,
