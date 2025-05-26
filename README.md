@@ -1,62 +1,98 @@
-# 📊 Sales Performance Analysis & Customer Segmentation
+# 📊 Sales Performance Analysis & Customer Segmentation using MySQL
 
-This end-to-end data analytics project analyzes e-commerce sales data to uncover meaningful business insights, improve decision-making, and segment customers based on behavior and value.
-
----
-
-## 🚀 Key Business Insights & Impact
-
-| 🔍 Insight | 📈 Business Impact |
-|------------|--------------------|
-| 1. Top 10 customers contribute 45%+ of total revenue | Helps prioritize customer relationship efforts and loyalty programs |
-| 2. consistently outperforms other quarters | Seasonal trend → better inventory and marketing planning |
-| 3. Classic Cars product line generates highest revenue | Double down on high-performing categories in promotions |
-| 4. Europe outperforms Asia and NA in total sales | Allocate more resources to EMEA region |
-| 5. Medium and Large Deal Sizes generate more consistent profits | Upselling to small-deal customers can increase revenue |
-| 6. 5 products have high MSRP but low sales volume | Candidates for pricing adjustment or bundling strategy |
-| 7. Repeat customers drive >60% of revenue | Indicates strong customer loyalty — should be nurtured further |
-| 8. Top 5 cities with most orders: Paris, NYC, Madrid, Tokyo, San Francisco | Focused geo-targeting for future campaigns |
-| 9. High refund rate in orders with Deal Size = Small | Explore refund policy or customer education on small-value orders |
+This end-to-end project analyzes a company's sales data to extract actionable insights using SQL and Power BI. The focus is on performance metrics, customer segmentation, and business impact.
 
 ---
 
-## 🎯 Objectives
+## 📁 Dataset Overview
 
-- Analyze historical sales performance
-- Segment customers based on deal size and total spend
-- Identify actionable insights to improve revenue, reduce churn, and optimize regional and product strategies
-- Visualize results using an interactive Power BI dashboard
+The dataset contains order-level sales information from 2003–2005:
 
----
-
-## 📁 Project Structure
-
-| Folder | Description |
-|--------|-------------|
-| `1_data/` | Raw sales data (CSV) |
-| `2_sql_scripts/` | SQL for data cleaning, EDA, and Customer segmentation |
-| `3_reports/` | Summary of insights & recommendations |
-| `4_dashboard/` | Power BI dashboard |
+| Table Name    | Description                              |
+|---------------|------------------------------------------|
+| sales_data    | Core sales facts: revenue, orders, deals |
+| customers     | Customer information (country, city)     |
+| products      | Product line, code, and details          |
 
 ---
 
-## 🧰 Tools & Tech Stack
+## 💼 Business Objectives
 
-- **MySQL** – Data Cleaning, EDA, Customer Segmentation
-- **Power BI** – Interactive dashboard & visualization
-- **Git/GitHub** – Version control and collaboration
-
----
-
-## 📈 Power BI Dashboard
-
-📌 *COMING SOON* – Will include visualizations for:
-- Regional Sales Performance
-- Product Line Performance
-- Customer Segmentation
-- Monthly & Quarterly Trends
+- Analyze revenue trends across time, products, countries.
+- Identify top-selling product lines and SKUs.
+- Segment customers by revenue, frequency, and region.
+- Uncover high-impact deal sizes and profitable patterns.
 
 ---
 
+## 🛠️ Tools Used
 
+- MySQL: Data cleaning, transformation, analysis
+- Power BI: Dashboard creation and storytelling
+- GitHub: Version control and project sharing
 
+---
+
+## 🔍 Key SQL Analyses
+
+| Insight                                      | Method                            | Output                             |
+|---------------------------------------------|-----------------------------------|------------------------------------|
+| Top product lines by revenue                | GROUP BY productline              | Classic Cars = $3.9M               |
+| Best-selling individual products            | GROUP BY productcode              | S18_3232 = $288K                   |
+| Most profitable deal sizes                  | GROUP BY dealsize                 | Medium = $6.08M                    |
+| High-revenue customers                      | GROUP BY customername             | Top 10% = 60% revenue              |
+| Regional & city-wise performance            | GROUP BY city, country            | Madrid, NYC, San Rafael top        |
+| Order status breakdown                      | GROUP BY status                   | Shipped: 2617, Cancelled: 60       |
+| High-performing months                      | GROUP BY month_id                 | Nov > Oct > May                    |
+
+---
+
+## 📊 Dashboard Snapshots
+
+Visuals created in Power BI (included in /images):
+
+- Revenue trend by month/year
+- Sales by product line and country
+- Deal size segmentation
+- Top customers & frequency of orders
+- Status distribution overview
+
+---
+
+## 🎯 Business Impact
+
+- Identified top 10% customers driving 60% revenue — enabling focused retention strategy.
+- Segmented SKUs by country & deal size — aiding pricing & inventory optimization.
+- Visualized seasonality & sales peaks — helpful for marketing and forecasting.
+- Provided executive-ready dashboard for decision-makers.
+
+---
+
+## 🧠 Learnings & Takeaways
+
+- Practice of writing optimized SQL queries for business analysis.
+- Power BI storytelling and dashboarding best practices.
+- Translating raw data into insights with business impact.
+
+---
+
+## 📂 Folder Structure
+
+| Folder/File             | Description                             |
+|-------------------------|-----------------------------------------|
+| README.md               | Project overview & documentation        |
+| /SQL_queries            | All MySQL queries used                  |
+| /PowerBI_dashboard      | PBIX file and screenshots               |
+| /images                 | Dashboard snapshots                     |
+| /data                   | CSVs (anonymized or sample version)     |
+
+---
+
+## ✅ Author
+
+🔗 LinkedIn | 🌐 Portfolio | 📁 GitHub | 📝 Medium Blog  
+Add your links here as clickable Markdown.
+
+---
+
+📌 Feel free to fork, clone, or build upon this project!
